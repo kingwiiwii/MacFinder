@@ -1,0 +1,5 @@
+This is a learning project for finding port locations based on a given MAC address. 
+
+The long term plan for this is to eventually have a script able to work out the port on a switch based on a given IP address and to even find the IP of a device on a port just based on the knowing the port number on the switch. 
+
+The main goal of this project is to learn more about Python and interacting with Cisco IOS devices and Nexus devices. 
