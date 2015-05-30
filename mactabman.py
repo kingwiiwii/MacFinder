@@ -2,9 +2,40 @@ import urllib2
 
 maclookup_url = 'http://www.macvendorlookup.com/api/v2/'
 
-
-
+print
+print "                    #                               #			"
+print "                   ###                             ###			"
+print "                   ###                             ###			"
+print "                   ###                             ###			"
+print "            #      ###      #               #      ###      #		"
+print "           ###     ###     ###             ###     ###     ###		"
+print "    #      ###     ###     ###      #      ###     ###     ###      #	"
+print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
+print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
+print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
+print "    #       #      ###      #       #       #      ###      #       # 	"
+print "                   ###                             ###			"
+print "                   ###                             ###			"
+print "                    #                               # 			"
+print										"																				"
+print "            #######   ###    #######       #######      #####		"
+print "          #########   ###   ###    ##    #########    #########		"
+print "         ###          ###    ####       ###          ###     ###		"
+print "         ###          ###      ###      ###          ###     ###		"
+print "         ###          ###       ####    ###          ###     ###		"
+print "          #########   ###   ##    ###    #########    #########		"
+print "            #######   ###    #######       #######      #####		"
+print
+print
+print "IP and MAC Locator"
+print
+print "MAC Address must be in format xxxx.xxxx.xxxx"
+print
 mac = raw_input('MAC Address :')
+print
+print
+print
+
 
 with open("MAC-Output.txt", "r") as file:
   for line in file:
@@ -29,10 +60,15 @@ with open("MAC-Output.txt", "r") as file:
 		print "\r"		
 		print "\r"	
 	
+	else :
+		break
+		
+
+print "MAC not found."
+print
+print
+print
 
 
 
 
-	#Vlan, Mac, Type, Port = line.split()  
-	#values = line.split()+ 0 * [None]	
-	#print values
