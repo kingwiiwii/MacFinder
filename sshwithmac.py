@@ -31,8 +31,8 @@ f = open("MAC-Output-tmp.txt","w")
 f.write(conn.response)
 f.close()
 
-conn.send('exit\r')               
-conn.close()  
+#conn.send('exit\r')               
+#conn.close()  
 
 
 with open("MAC-Output-tmp.txt", "r") as output: 	
@@ -49,27 +49,30 @@ with open("MAC-Output-tmp.txt", "r") as output:
 			API_CALL = API_CALL.split(",")
 			Vendor_result = API_CALL[4]
 			Vendor = Vendor_result[10: ]
-				
+			port = str(line[3])
+			conn.execute("show run int " + port)
 		
-			print "\r"		
-			print "\r"
-			print "=================="
-			print "Vlan %s" % line[0]
+			print 		
+			print 
+			print "==========================="
+			#print "Vlan %s" % line[0]
 			print "MAC %s" % line[1] 
 			print "Vendor %s" % Vendor
-			print "Port %s" % line[3]
-			print "=================="
-			print "\r"		
-			print "\r"	
-
-
+			#print "Port %s" % line[3]
+			#print
+			print "==========================="
+			print conn.response
+			print "==========================="
 # Now works to here !
 	
 		#else:
 			#break
-			
 
-#os.remove("MAC-Output-tmp.txt")
+conn.send('exit\r')               
+conn.close()
+		
+
+os.remove("MAC-Output-tmp.txt")
 #print "MAC not found."
 #print
 #print
