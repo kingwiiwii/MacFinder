@@ -35,14 +35,12 @@ conn.send('exit\r')
 conn.close()  
 
 
-with open("MAC-Output-tmp.txt", "r") as output:
-#	output = output.readlines()
-#appears to work till this point   	
+with open("MAC-Output-tmp.txt", "r") as output: 	
 	
-
 	for line in output:		
 		line = line.strip()		
-		print line		
+		
+		
 		if mac in line:
 			line = line.split()		
 			macOUI = line[1]			
@@ -50,7 +48,8 @@ with open("MAC-Output-tmp.txt", "r") as output:
 			API_CALL = urllib2.urlopen(maclookup_url+macOUI).read()
 			API_CALL = API_CALL.split(",")
 			Vendor_result = API_CALL[4]
-			Vendor = Vendor_result[10: ]	
+			Vendor = Vendor_result[10: ]
+				
 		
 			print "\r"		
 			print "\r"
@@ -62,16 +61,19 @@ with open("MAC-Output-tmp.txt", "r") as output:
 			print "=================="
 			print "\r"		
 			print "\r"	
+
+
+# Now works to here !
 	
-		else :
-			break
+		#else:
+			#break
 			
 
-os.remove("MAC-Output-tmp.txt")
-print "MAC not found."
-print
-print
-print
+#os.remove("MAC-Output-tmp.txt")
+#print "MAC not found."
+#print
+#print
+#print
 
 
 
