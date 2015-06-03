@@ -32,7 +32,6 @@ print
 print
 print "IP and MAC Locator"
 print
-
 print "Login Method"
 print "============"
 print "1.Telnet"
@@ -42,10 +41,19 @@ print "\r"
 
 
 Switch_IP = raw_input('Core Switch IP :')
-print "10.71.16.50"
+print
+Connection_Type = raw_input('Connection Type :')
+print
 Device_IP = raw_input('IP Address :')
 
-conn = SSH2() 
+conn = 'null'
+
+if Connection_Type == '1':
+	conn = 'Telnet()'
+elif Connection_Type == '2':
+	conn = 'SSH2()'
+	
+print conn
 
 account = read_login()              
                       
