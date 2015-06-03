@@ -5,6 +5,33 @@ import os
 
 maclookup_url = 'http://www.macvendorlookup.com/api/v2/'
 
+print
+print "                    #                               #			"
+print "                   ###                             ###			"
+print "                   ###                             ###			"
+print "                   ###                             ###			"
+print "            #      ###      #               #      ###      #		"
+print "           ###     ###     ###             ###     ###     ###		"
+print "    #      ###     ###     ###      #      ###     ###     ###      #	"
+print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
+print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
+print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
+print "    #       #      ###      #       #       #      ###      #       # 	"
+print "                   ###                             ###			"
+print "                   ###                             ###			"
+print "                    #                               # 			"
+print										"																				"
+print "            #######   ###    #######       #######      #####		"
+print "          #########   ###   ###    ##    #########    #########		"
+print "         ###          ###    ####       ###          ###     ###		"
+print "         ###          ###      ###      ###          ###     ###		"
+print "         ###          ###       ####    ###          ###     ###		"
+print "          #########   ###   ##    ###    #########    #########		"
+print "            #######   ###    #######       #######      #####		"
+print
+print
+print "IP and MAC Locator"
+print
 
 print "Login Method"
 print "============"
@@ -14,7 +41,7 @@ print "\r"
 print "\r"
 
 
-Switch_IP = raw_input('Switch IP :')
+Switch_IP = raw_input('Core Switch IP :')
 print "10.71.16.50"
 Device_IP = raw_input('IP Address :')
 
@@ -28,19 +55,55 @@ conn.login(account)
 conn.execute('term len 0')
 conn.execute('term width 0')
 conn.execute("show ip arp | i " + Device_IP)
+
 f = open("ARP-Output-tmp.txt","w")
 f.write(conn.response)
 f.close()
 
+
+
 with open("ARP-Output-tmp.txt", "r") as arp_output: 
 	for line in arp_output:		
-		line = line.strip()		
-
+		line = line.strip()	
 		if 'Internet' and Device_IP in line:
-				line = line.split()	
-				mac = line[3]
+			line = line.split()	
+			mac = line[3]
+			
+os.remove("ARP-Output-tmp.txt")
+
+conn.execute('show mac address-table')
+f = open("MAC-Output-tmp.txt","w")
+f.write(conn.response)
+f.close()
 
 
+with open("MAC-Output-tmp.txt", "r") as output: 	
+	for line in output:		
+		line = line.strip()		
+		
+		if mac in line:
+			line = line.split()
+			macOUI = line[1]			
+			macOUI = macOUI[0:4]+macOUI[5:9]+macOUI[10:14]
+			API_CALL = urllib2.urlopen(maclookup_url+macOUI).read()
+			API_CALL = API_CALL.split(",")
+			Vendor_result = API_CALL[4]
+			Vendor = Vendor_result[10: ]
+			port = str(line[3])
+			conn.execute("show run int " + port)
+			port_config = conn.response
+		
+			print 		
+			print 
+			print "==========================="
+			print "MAC %s" % line[1] 
+			print "Vendor %s" % Vendor
+			print "==========================="
+			print port_config
+			print "==========================="
+
+
+os.remove("MAC-Output-tmp.txt")
 conn.send('exit\r')               
 conn.close()  
 
