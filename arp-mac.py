@@ -42,7 +42,7 @@ print "\r"
 
 
 Switch_IP = raw_input('Core Switch IP :')
-print "10.71.16.50"
+print
 Device_IP = raw_input('IP Address :')
 
 conn = SSH2() 
