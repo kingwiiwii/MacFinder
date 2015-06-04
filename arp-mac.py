@@ -8,16 +8,11 @@ maclookup_url = 'http://www.macvendorlookup.com/api/v2/'
 print
 print "                    #                               #			"
 print "                   ###                             ###			"
-print "                   ###                             ###			"
-print "                   ###                             ###			"
 print "            #      ###      #               #      ###      #		"
 print "           ###     ###     ###             ###     ###     ###		"
 print "    #      ###     ###     ###      #      ###     ###     ###      #	"
 print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
-print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
-print "   ###     ###     ###     ###     ###     ###     ###     ###     ###	"
 print "    #       #      ###      #       #       #      ###      #       # 	"
-print "                   ###                             ###			"
 print "                   ###                             ###			"
 print "                    #                               # 			"
 print										"																				"
@@ -32,17 +27,19 @@ print
 print
 print "IP and MAC Locator"
 print
-print "Login Method"
-print "============"
-print "1.Telnet"
-print "2.SSHv2"
-print "\r"
-print "\r"
+print 
+print 
 
 
 Switch_IP = raw_input('Core Switch IP :')
 print
+print "Login Method"
+print "============"
+print "1.Telnet"
+print "2.SSHv2"
+print
 Connection_Type = raw_input('Connection Type :')
+print
 print
 Device_IP = raw_input('IP Address :')
 
@@ -53,8 +50,6 @@ if Connection_Type == '1':
 elif Connection_Type == '2':
 	conn = 'SSH2()'
 	
-print conn
-
 account = read_login()              
                       
 conn.connect(Switch_IP)     
@@ -69,15 +64,14 @@ f.write(conn.response)
 f.close()
 
 
-
 with open("ARP-Output-tmp.txt", "r") as arp_output: 
 	for line in arp_output:		
 		line = line.strip()	
 		if 'Internet' and Device_IP in line:
 			line = line.split()	
 			mac = line[3]
-			
-os.remove("ARP-Output-tmp.txt")
+	
+
 
 conn.execute('show mac address-table')
 f = open("MAC-Output-tmp.txt","w")
@@ -111,6 +105,7 @@ with open("MAC-Output-tmp.txt", "r") as output:
 			print "==========================="
 
 
+os.remove("ARP-Output-tmp.txt")
 os.remove("MAC-Output-tmp.txt")
 conn.send('exit\r')               
 conn.close()  
