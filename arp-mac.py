@@ -59,12 +59,12 @@ conn.execute('term len 0')
 conn.execute('term width 0')
 conn.execute("show ip arp | i " + Device_IP)
 
-f = open("ARP-Output-tmp.txt","w")
+f = open("~ARP-Output-tmp.txt","w")
 f.write(conn.response)
 f.close()
 
 
-with open("ARP-Output-tmp.txt", "r") as arp_output: 
+with open("~ARP-Output-tmp.txt", "r") as arp_output: 
 	for line in arp_output:		
 		line = line.strip()	
 		if 'Internet' and Device_IP in line:
@@ -74,12 +74,12 @@ with open("ARP-Output-tmp.txt", "r") as arp_output:
 
 
 conn.execute('show mac address-table')
-f = open("MAC-Output-tmp.txt","w")
+f = open("~MAC-Output-tmp.txt","w")
 f.write(conn.response)
 f.close()
 
 
-with open("MAC-Output-tmp.txt", "r") as output: 	
+with open("~MAC-Output-tmp.txt", "r") as output: 	
 	for line in output:		
 		line = line.strip()		
 		
@@ -105,7 +105,7 @@ with open("MAC-Output-tmp.txt", "r") as output:
 			print "==========================="
 
 
-os.remove("ARP-Output-tmp.txt")
-os.remove("MAC-Output-tmp.txt")
+os.remove("~ARP-Output-tmp.txt")
+os.remove("~MAC-Output-tmp.txt")
 conn.send('exit\r')               
 conn.close()  
