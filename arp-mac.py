@@ -43,15 +43,15 @@ print
 print
 Device_IP = raw_input('IP Address :')
 
-conn = 'null'
+conn = None
 
 if Connection_Type == '1':
-	conn = 'Telnet()'
+	conn = Telnet()
 elif Connection_Type == '2':
-	conn = 'SSH2()'
+	conn = SSH2()
 	
 account = read_login()              
-                      
+      
 conn.connect(Switch_IP)     
 conn.login(account)                 
 
@@ -109,4 +109,3 @@ os.remove("ARP-Output-tmp.txt")
 os.remove("MAC-Output-tmp.txt")
 conn.send('exit\r')               
 conn.close()  
-
