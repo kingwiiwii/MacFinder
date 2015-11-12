@@ -1,5 +1,6 @@
 from Exscript.util.interact import read_login
 from Exscript.protocols import SSH2
+from Exscript.protocols import Telnet
 import urllib2
 import os
 
@@ -46,14 +47,21 @@ Device_IP = raw_input('IP Address :')
 conn = None
 
 if Connection_Type == '1':
+	enable_pass = raw_input('Enable Password :')
 	conn = Telnet()
+	account = read_login()            
+	conn.connect(Switch_IP)     
+	conn.login(account)    
+	conn.execute('enable')
+	conn.execute(enable_pass)
+	
 elif Connection_Type == '2':
 	conn = SSH2()
-	
-account = read_login()              
-      
-conn.connect(Switch_IP)     
-conn.login(account)                 
+	account = read_login()            
+	conn.connect(Switch_IP)     
+	conn.login(account)                 
+
+
 
 conn.execute('term len 0')
 conn.execute('term width 0')
@@ -100,8 +108,12 @@ with open("~MAC-Output-tmp.txt", "r") as output:
 			print "==========================="
 			print "MAC %s" % line[1] 
 			print "Vendor %s" % Vendor
-			print "==========================="
-			print port_config
+			print
+			port_config = port_config.splitlines()
+			del port_config[0:5]
+			del port_config[-3: ]
+			for line in port_config:
+				print line
 			print "==========================="
 
 
